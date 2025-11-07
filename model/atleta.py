@@ -1,11 +1,13 @@
 from categoria import Categoria
 class atletas:
-    def __init__(self, id: int, nome: str, categoria: Categoria, email: str,
+    def __init__(self, id: int, nome: str, genero: str, categoria_id: int, categoria: Categoria, email: str,
                 idade: int | None = None, altura: float | None = None, 
                 peso: float | None = None, ativo: bool = True, observacoes: str | None = None,
                 telefone: int | None = None, momento_cadastro: str | None = None):
         self.id = id
         self.nome = nome
+        self.genero = genero
+        self.categoria_id = categoria_id
         self.email = email
         self.idade = idade
         self.altura = altura
