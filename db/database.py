@@ -22,8 +22,7 @@ class DataBase:
         create table if not exists participante
         (
         id_participante integer PRIMARY KEY AUTOINCREMENT, 
-        NOME_COMPLETO VARCHAR(150),  
-        CPF varchar(11) not null unique,
+        NOME VARCHAR(150),  
         GENERO CHAR(9),  
         IDADE integer check(idade> = 4 and idade <= 110),   
         altura real,
@@ -31,8 +30,8 @@ class DataBase:
         TELEFONE varchar(14),  
         E_MAIL VARCHAR(50),
         observacao text, 
-        valor varchar(50),    
-        endereco varchar(150),
+        ativo integer defalt 1,    
+        categoria_id integer not null,    
         momento_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
         '''
