@@ -1,7 +1,7 @@
 from db.database import DataBase
 from model.categoria import Categoria
 
-class categoria_Dao:
+class CategoriaDao:
     def __init__(self, db: DataBase):
         self.db = db
     
@@ -23,6 +23,16 @@ class categoria_Dao:
         if row:
             return self.criarDeRow(row)
         return None
+
+    def buscar_por_nome(self, nome: str):
+        cur = self.db.meu_cursor()
+        cur.execute("select * from categoria where nome = ?", (nome, ))
+        row = cur.fetchone() 
+
+        if row:
+            return self.criarDeRows(row)
+        return None
+        
     def listar_todas(self):
         cur = self.db.meu_cursor()
         cur.execute("select * from categoria order by nome;")

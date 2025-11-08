@@ -3,7 +3,7 @@ from dao.categoria_dao import categoria_Dao
 from db.database import DataBase
 from model.categoria import Categoria
 
-class PessoaDao:
+class AtletaDao:
     def __init__(self, db = DataBase):
         self.db = db
 
@@ -16,13 +16,13 @@ class PessoaDao:
         if atletas.id is None:
             cur.execute("""insert into participante(nome, genero, idade, altura, peso, telefone, e_mail, observacao, ativo, categoria_id)
             values (?,?,?,?,?,?,?,?,?,?);
-            """(atleta.nome, atleta.genero, atleta.idade, atleta.altura, atleta.peso, atleta.telefone, atleta.email, atleta.observacoes, atleta.ativo, categoriaId))
+            """, (atleta.nome, atleta.genero, atleta.idade, atleta.altura, atleta.peso, atleta.telefone, atleta.email, atleta.observacoes, atleta.ativo, categoriaId))
             atleta.id = cur.lastrowid
         else:
             cur.execute("""
-            update participante set nome = ?, genero = ?, idade = ?, altura = ?, peso = ?, telefone = ?, e_mail = ?, ativo = ?, cstegoria_id = ?
+            update participante set nome = ?, genero = ?, idade = ?, altura = ?, peso = ?, telefone = ?, e_mail = ?, ativo = ?, categoria_id = ?
             where id = ?;
-            """(atleta.nome, atleta.generp, atleta.idade, atleta.altura, atleta.peso, atleta.telefone, atleta.email, atleta.observacoes, atleta.ativo, categoriaId
+            """, (atleta.nome, atleta.genero, atleta.idade, atleta.altura, atleta.peso, atleta.telefone, atleta.email, atleta.observacoes, atleta.ativo, categoriaId
             , atleta.id))
 
         return atleta.id
@@ -83,14 +83,14 @@ class PessoaDao:
         categoriaDao = categoria_Dao(self.db)
         categoria = categoriaDao.buscar_por_id(row['categoria_id'])
         
-        return categoria(
+        return atletas(
             id=row['id'],
             nome=row['nome'],
+            genero=row['genero'],
             email=row['email'],
             idade=row['idade'],
             altura=row['altura'],
             peso=row['peso'],
-            data_nascimento=row['data_nascimento'],
             ativo=bool(row['ativo']),
             observacoes=row['observacoes'],
             telefone=row['telefone'],
@@ -98,9 +98,9 @@ class PessoaDao:
             momento_cadastro=row['momento_cadastro']
         )
     
-    def deletar(self, categoria: Categoria):        
+    def deletar(self, atleta: atletas):        
         cur = self.db.cursor()
-        cur.execute("DELETE FROM pessoa WHERE id = ?;", (categoria.id,))
+        cur.execute("DELETE FROM pessoa WHERE id = ?;", (atletas.id,))
 
         return cur.rowcount > 0
     
